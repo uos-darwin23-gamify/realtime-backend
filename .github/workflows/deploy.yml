@@ -1,0 +1,34 @@
+name: "Deploy To Server"
+
+on:
+  push:
+    branches: [main]
+
+env:
+  DOKKU_REPO: "ssh://dokku@gamifycoding.me:22/realtime-backend"
+  DOKKU_DEPLOY_BRANCH: "main"
+
+permissions: write-all
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Cloning Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Dokku
+        uses: dokku/github-action@v1.4.0
+        with:
+          git_push_flags: '--force'
+          ssh_private_key: ${{ secrets.SSH_KEY }}
+          git_remote_url: ${{ env.DOKKU_REPO }}
+          branch: ${{ env.DOKKU_DEPLOY_BRANCH }}

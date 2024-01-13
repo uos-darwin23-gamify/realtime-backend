@@ -1,0 +1,13 @@
+# Ignore git directory.
+/.git/
+
+# Ignore all environment files.
+/.env*
+
+# Ignore node_modules
+/node_modules/
+
+# Ignore existing build
+/build/
+
+/Dockerfile
