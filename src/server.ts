@@ -4,22 +4,22 @@ import { Server } from "socket.io";
 import cors from "cors";
 import railsController from "./controllers/rails";
 
-const whitelistCors = [
-  "http://localhost:3000",
-  "http://localhost:5173",
-  "https://gamifycoding.me",
-  "ws://localhost:3000",
-  "ws://localhost:5173",
-  "wss://gamifycoding.me",
-];
+// const whitelistCors = [
+//   "http://localhost:3000",
+//   "http://localhost:5173",
+//   "https://gamifycoding.me",
+//   "ws://localhost:3000",
+//   "ws://localhost:5173",
+//   "wss://gamifycoding.me",
+// ];
 
 const app = express();
 const server = createServer(app);
-app.use(cors({ origin: whitelistCors, credentials: true }));
+app.use(cors());
 
 const io = new Server(server, {
   path: "/socket",
-  cors: { origin: whitelistCors, credentials: true },
+  cors: { origin: "*" },
 });
 
 app.use("/api", railsController(io));
