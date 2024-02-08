@@ -5,16 +5,24 @@ export const baseURLRails = devMode
   ? process.env.RAILS_SERVER_URL_DEV
   : process.env.RAILS_SERVER_URL_PRODUCTION;
 
+export const appendApiKeyParam = (url: string) =>
+  url +
+  "?API_KEY=" +
+  encodeURIComponent(process.env.SOCKET_SERVER_API_KEY ?? "");
+
 export const getUserType = async (
   accessToken: string
 ): Promise<false | "user" | "admin"> => {
-  const response = await fetch(baseURLRails + "/auth/status", {
-    method: "POST",
-    body: JSON.stringify({ access_token: accessToken }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    appendApiKeyParam(baseURLRails + "/auth/status"),
+    {
+      method: "POST",
+      body: JSON.stringify({ access_token: accessToken }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   if (!response.ok) {
     return false;
