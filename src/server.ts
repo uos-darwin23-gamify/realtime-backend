@@ -52,6 +52,8 @@ app.use(cors());
 const io = new Server(server, {
   path: "/socket",
   cors: { origin: "*" },
+  pingInterval: 5000,
+  pingTimeout: 10000,
 });
 
 app.use("/api", railsController(io));
