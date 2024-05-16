@@ -12,6 +12,8 @@ RUN yarn install
 
 RUN yarn build
 
+ENV NODE_OPTIONS="--enable-source-maps"
+
 ENV PORT=4000
 
 EXPOSE 4000
