@@ -1,4 +1,4 @@
-Dependencies:
+Dependencies required for development:
 
 ```npm install -g ts-node```  
 ```npm install -g ts-node-dev```  
